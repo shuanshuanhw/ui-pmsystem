@@ -1,0 +1,3 @@
+<template>
+function money
+</template>
