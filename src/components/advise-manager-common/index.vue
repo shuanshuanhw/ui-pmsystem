@@ -32,10 +32,26 @@
    </el-form>
 
 
-   <el-table :data="tableData" style="width: 100%">
-    <el-table-column prop="date" label="Date" width="180" />
-    <el-table-column prop="name" label="Name" width="180" />
-    <el-table-column prop="address" label="Address" />
+   <el-table 
+   :data="tableData" 
+   style="width: 100%"
+   :default-sort="{ prop: 'defaultTime', order: 'descending' }"
+   
+   >
+    <el-table-column prop="id" label="id" />
+    <el-table-column prop="adviseName" label="提议名" />
+    <el-table-column prop="state" label="状态" />
+    <el-table-column prop="defaultTime" label="日期" sortable  />
+
+        <el-table-column label="操作">
+      <template #default="scope">
+        <el-button size="small" type="danger" @click="handleEdit(scope.$index, scope.row)"
+          >打开</el-button
+        >
+      </template>
+    </el-table-column>
+
+
   </el-table>
 
 <div class="example-pagination-block">
@@ -43,7 +59,11 @@
     <el-pagination 
     :page-sizes="[10, 20, 30, 40, 50, 100]"
     layout="prev, pager, next, jumper,sizes, ->, total" 
-    :total="50" />
+    :total="page.total"
+    :default-page-size = "20"
+    @current-change="currentChange"
+    @size-change="sizeChange"
+     />
   </div>
 
 </div>
@@ -51,38 +71,40 @@
 
 
 <script>
+import {getTableData} from '@/api/advise.js'
 export default {
   data() {
     return {
         tableData: [],
         formData: {
-        scope: '',
-        category: '',
+        scope: '我的提议 + 其他',
+        category: '已经提交',
         keyword: '', 
+        },
+        page:{
+          total: 0,
+          pageNumber: 1,
+          pageSize: 20
         },
         url: '/u41.png',
 		ifAdmin: false,
 		permission:'2',
         options : [
   {
-    value: '待评提议',
-    label: '待评提议',
+    value: '同意提议',
+    label: '同意提议',
   },
   {
-    value: '已通过提议',
-    label: '已通过提议',
+    value: '已经提交',
+    label: '已经提交',
   },
   {
-    value: '待修改提议',
-    label: '待修改提议',
+    value: '修改待评',
+    label: '修改待评',
   },
   {
     value: '不同意提议',
     label: '不同意提议',
-  },
-  {
-    value: 'Option5',
-    label: 'Option5',
   },
 ],
         options2 : [
@@ -98,14 +120,36 @@ export default {
     };
   },
   methods:{
+      currentChange(e)
+      {
+        console.log('页码变了',e)
+this.getTableData(this.formData.keyword,this.formData.category,this.formData.scope,e,this.page.pageSize);
+      },
+      sizeChange(e)
+      {
+        console.log(e)
+        this.page.pageSize = e
+        this.getTableData(this.formData.keyword,this.formData.category,this.formData.scope,1,this.page.pageSize);
+      },
     // 从后台取出数据集，根据分页
-    getTableData(keyword,category,scope)
+    getTableData(keyword,category,scope,pageNumber,pageSize)
     {
-
+     
+      getTableData(keyword,category,scope,pageNumber,pageSize).then(resp=>{
+        console.log(resp)
+        if(resp.data.flag)
+        {
+          this.tableData = resp.data.data.adviseTableData
+          this.page.total = resp.data.data.total
+        }
+      })
     },
     onSubmit(){
-        
+this.getTableData(this.formData.keyword,this.formData.category,this.formData.scope,1,this.page.pageSize);
     }
+  },
+  created(){
+        this.getTableData(this.formData.keyword,this.formData.category,this.formData.scope,this.page.pageNumber,this.page.pageSize);
   },
   mounted(){
 
