@@ -26,56 +26,80 @@ const routes = [
         path:"",
         name: "",
         redirect: 'index/index'
+        
       },
       {
         path:'function-evaluation',
         name: "function-evaluation",
+        meta:{keepAlive: true},
         component: () => import('@/components/function-evaluation')
       },
       {
         path:'function-money',
+        meta:{keepAlive: true},
         component: () => import('@/components/function-money')
       },
       {
         path:'function-date',
+        meta:{keepAlive: true},
         component: () => import('@/components/function-date')
       },
       {
         path:'function-user',
+        meta:{keepAlive: true},
         component: () => import('@/components/function-user')
       },
       {
         path:'finish',
+        meta:{keepAlive: true},
         component: () => import('@/components/finish-manage')
       },
       {
         path:'advise',
+        meta:{keepAlive: true},
         component: () => import('@/components/advise-manage')
       },
       {
         path:'project',
+        meta:{keepAlive: true},
         component: () => import('@/components/project-manage')
       },
       {
         path: 'index',
         name: 'index',
+        meta:{keepAlive: true},
         component: ()=>import('@/components/Index2/index.vue')  
       }
       ,
       {
         path: 'advise-common',
         name: 'advise-common',
+        meta:{keepAlive: true},
         component: ()=>import('@/components/advise-manager-common')  
+      },
+      {
+        path: 'advise-common-item',
+        name: 'advise-common-item',
+        meta:{keepAlive: true},
+        component: ()=>import('@/components/advise-manager-common/item')  
+      },
+      {
+        path: 'advise-common-newItem',
+        name: 'advise-common-newItem',
+        meta:{keepAlive: true},
+        component: ()=>import('@/components/advise-manager-common/newItem')  
       }
       ,
       {
         path: 'project-common',
         name: 'project-common',
+        meta:{keepAlive: true},
         component: ()=>import('@/components/project-manage-common')  
       },
       {
         path: 'finish-common',
         name: 'finish-common',
+        meta:{keepAlive: true},
         component: ()=>import('@/components/finish-manage-common')  
       }
     ]

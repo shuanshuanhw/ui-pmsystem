@@ -4,8 +4,9 @@ import App from './App.vue'
 import router from './router.js'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
+import store from '@/store/index.js'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 
 // import '@/assets/styles/index.scss' // global css
 // import '@/assets/styles/ruoyi.scss' // ruoyi css
@@ -19,6 +20,9 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 const app = createApp(App)
 app.use(router)
 app.use(ElementPlus)
+app.use(store)
+
+// app.use(VueQuillEditor)
 // app.use(SvgIcon)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)

@@ -32,6 +32,8 @@
    </el-form>
 
 
+<div><el-button type="primary" @click="this.$router.push('advise-common-newItem')" plain>新建提议</el-button></div>
+
    <el-table 
    :data="tableData" 
    style="width: 100%"
@@ -45,9 +47,8 @@
 
         <el-table-column label="操作">
       <template #default="scope">
-        <el-button size="small" type="danger" @click="handleEdit(scope.$index, scope.row)"
-          >打开</el-button
-        >
+        <el-button size="small" type="danger" @click="pushToItem(scope.$index, scope.row)"
+          >打开</el-button>
       </template>
     </el-table-column>
 
@@ -120,6 +121,12 @@ export default {
     };
   },
   methods:{
+    pushToItem(index, row){
+      this.$store.commit('setId',row.id)
+      this.$router.push('advise-common-item').catch((e)=>{
+                    console.log(e)
+                  });
+    },
       currentChange(e)
       {
         console.log('页码变了',e)
@@ -149,10 +156,10 @@ this.getTableData(this.formData.keyword,this.formData.category,this.formData.sco
     }
   },
   created(){
-        this.getTableData(this.formData.keyword,this.formData.category,this.formData.scope,this.page.pageNumber,this.page.pageSize);
+
   },
   mounted(){
-
+this.getTableData(this.formData.keyword,this.formData.category,this.formData.scope,this.page.pageNumber,this.page.pageSize);
   }
 
 }
