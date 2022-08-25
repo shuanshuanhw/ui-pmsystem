@@ -30,3 +30,16 @@ export function newMainItem(adviseName,introduce,feasibilityAnalyze,innovation)
     },
   })
 }
+
+export function getItemData(id)
+{
+  const token = Cookies.get('token');
+  return request({
+    url: `/vue/advise/getItemData`,
+    headers: {'token': token},
+    method: 'get',
+    params: {
+      id,
+    },
+  })
+}

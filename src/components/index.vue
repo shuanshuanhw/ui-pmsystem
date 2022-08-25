@@ -5,12 +5,12 @@
       <el-container>
         <el-header><Top></Top></el-header>
         <el-main>
- <router-view v-slot="{ Component }" v-if="$route.meta.keepAlive">
+ <router-view :key="$route.path" v-slot="{ Component }" v-if="$route.meta.keepAlive">
   <keep-alive>
     <component :is="Component" />
   </keep-alive>
 </router-view>
-          <router-view v-if="!$route.meta.keepAlive"></router-view>
+<router-view :key="$route.path" v-if="!$route.meta.keepAlive"></router-view>
         </el-main>
       </el-container>
     </el-container>

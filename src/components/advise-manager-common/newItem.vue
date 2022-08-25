@@ -154,7 +154,7 @@ toolbarKeys: [
     const next = () =>{
         console.log(adviseName._rawValue)
      //   store.commit('setNewAdvise',{adviseName: adviseName,introduce: valueHtml,feasibilityAnalyze: valueHtml2,innovation: valueHtml3});
-        newMainItem(adviseName._rawValue,valueHtml,valueHtml2,valueHtml3).then(resp=>{
+        newMainItem(adviseName._rawValue,valueHtml._rawValue,valueHtml2._rawValue,valueHtml3._rawValue).then(resp=>{
             console.log(resp)
         })
     }

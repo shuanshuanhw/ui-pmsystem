@@ -86,7 +86,7 @@ const routes = [
       {
         path: 'advise-common-newItem',
         name: 'advise-common-newItem',
-        meta:{keepAlive: true},
+        meta:{keepAlive: false},
         component: ()=>import('@/components/advise-manager-common/newItem')  
       }
       ,
