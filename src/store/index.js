@@ -4,24 +4,50 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
-      id: '',
+      
       count: 0,
       newAdvise: {
         adviseName: '',
         introduce: '',
         feasibilityAnalyze: '',
         innovation: ''
+      },
+      newProject: {
+        projectName: '',
+        projectType: '',
+        projectObjective: '',
+        projectTank:'',
+        departmentName: '',
+        startTime: '',
+        endTime: '',
+        introduce: '',
+        feasibilityAnalyze: '',
+        innovation: '',
+        createrMx: ''
+      },
+      advise:{
+        id: '',
+      },
+      project:{
+        id: ''
       }
     }
   },
   mutations: {
-    setId (state,id) {
-      state.id = id
+    setAdviseId (state,id) {
+      state.advise.id = id
     },
     setNewAdvise(state,newAdvise)
     {
       state.newAdvise = newAdvise
-    }
+    },
+    setProjectId (state,id) {
+      state.project.id = id
+    },
+    setNewProject(state,newProject)
+    {
+      state.newProject = newProject
+    },
   }
 })
 

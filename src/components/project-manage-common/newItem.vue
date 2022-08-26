@@ -1,11 +1,10 @@
 <template>
 <div>
-    <el-divider content-position="left">功能区</el-divider>
+        <el-divider content-position="left">功能区</el-divider>
     <div class="button"><el-button @click="this.$router.back()"
           >返回</el-button> <el-button @click="next"
           >下一步</el-button></div>
 <el-divider></el-divider>
-
 
     <div class="content">
         
@@ -18,11 +17,66 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span>提议名称</span>
-        <el-button class="button" @click="adviseName=''" text>清除内容</el-button>
+        <span>基本资料</span>
+        <el-button class="button" @click="projectName=''" text>清除内容</el-button>
       </div>
     </template>
-<el-input v-model="adviseName" />
+
+  <el-form :model="form" label-width="120px">
+    <el-form-item label="项目名">
+      <el-input v-model="form.projectName" />
+    </el-form-item>
+    <el-form-item label="Activity zone">
+      <el-select v-model="form.region" placeholder="please select your zone">
+        <el-option label="Zone one" value="shanghai" />
+        <el-option label="Zone two" value="beijing" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="Activity time">
+      <el-col :span="11">
+        <el-date-picker
+          v-model="form.date1"
+          type="date"
+          placeholder="Pick a date"
+          style="width: 100%"
+        />
+      </el-col>
+      <el-col :span="2" class="text-center">
+        <span class="text-gray-500">-</span>
+      </el-col>
+      <el-col :span="11">
+        <el-time-picker
+          v-model="form.date2"
+          placeholder="Pick a time"
+          style="width: 100%"
+        />
+      </el-col>
+    </el-form-item>
+    <el-form-item label="Instant delivery">
+      <el-switch v-model="form.delivery" />
+    </el-form-item>
+    <el-form-item label="Activity type">
+      <el-checkbox-group v-model="form.type">
+        <el-checkbox label="Online activities" name="type" />
+        <el-checkbox label="Promotion activities" name="type" />
+        <el-checkbox label="Offline activities" name="type" />
+        <el-checkbox label="Simple brand exposure" name="type" />
+      </el-checkbox-group>
+    </el-form-item>
+    <el-form-item label="Resources">
+      <el-radio-group v-model="form.resource">
+        <el-radio label="Sponsor" />
+        <el-radio label="Venue" />
+      </el-radio-group>
+    </el-form-item>
+    <el-form-item label="Activity form">
+      <el-input v-model="form.desc" type="textarea" />
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit">Create</el-button>
+      <el-button>Cancel</el-button>
+    </el-form-item>
+  </el-form>
   </el-card>
 
       <el-card class="box-card">
@@ -95,6 +149,7 @@
     </div>
 </div>
 </template>
+
 <script>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
@@ -105,11 +160,16 @@ import {newMainItem} from '@/api/advise.js'
 
 import { useStore } from 'vuex'
 
-
 export default {
+  data() {
+    return {
+        form:{
+            projectName: ''
+        }
+    };
+  },
   components: { Editor, Toolbar },
   setup() {
-
     const store = useStore()
 
     // 编辑器实例，必须用 shallowRef
@@ -120,7 +180,6 @@ export default {
     const valueHtml = ref('')
     const valueHtml2 = ref('')
     const valueHtml3 = ref('')
-    const adviseName = ref('')
     // 模拟 ajax 异步获取内容
     onMounted(() => {
         setTimeout(() => {
@@ -192,7 +251,6 @@ toolbarKeys: [
         })
     }
     return {
-      adviseName,
       editorRef,
       editorRef2,
       editorRef3,
@@ -209,7 +267,4 @@ toolbarKeys: [
     };
   }
 }
-</script>  
-<style scoped>
-
-</style>
+</script>

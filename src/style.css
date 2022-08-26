@@ -1,3 +1,38 @@
+.search{
+  text-align: left;
+  margin-top: 10px;
+}
+.button{
+  text-align: right;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.box-card {
+  width: 100%;
+  padding:0;
+  margin-top: 10px;
+}
+
+.example-pagination-block + .example-pagination-block {
+  margin-top: 10px;
+}
+.example-pagination-block .example-demonstration {
+  margin-bottom: 16px;
+}
+
+/* 上面是我自己写的 */
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -56,6 +91,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  text-align: right;
 }
 button:hover {
   border-color: #646cff;

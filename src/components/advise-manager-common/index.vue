@@ -1,6 +1,9 @@
 <template>
 <div>
-   <el-form :inline="true" :model="formData" class="demo-form-inline">
+
+  <div class="search">
+
+       <el-form :inline="true" :model="formData" class="demo-form-inline">
    <el-form-item label="关键词">
      <el-input v-model="formData.keyword" placeholder="输入关键词" />
    </el-form-item>
@@ -27,13 +30,17 @@
   </el-select>
    </el-form-item>
    <el-form-item>
-      <el-button type="primary" @click="onSubmit" plain>搜索</el-button>
+      <el-button  @click="onSubmit" plain>搜索</el-button>
     </el-form-item>
    </el-form>
 
+  </div>
 
-<div><el-button type="primary" @click="this.$router.push('advise-common-newItem')" plain>新建提议</el-button></div>
 
+
+
+<div class="button"><el-button  @click="this.$router.push('advise-common-newItem')" plain>新建提议</el-button></div>
+  <el-divider></el-divider>
    <el-table 
    :data="tableData" 
    style="width: 100%"
@@ -42,12 +49,22 @@
    >
     <el-table-column prop="id" label="id" />
     <el-table-column prop="adviseName" label="提议名" />
-    <el-table-column prop="state" label="状态" />
+    <el-table-column label="状态" >
+      <template #default="scope">
+      <el-tag class="ml-2" type="info">{{scope.row.state}}</el-tag>
+      </template>
+    
+      </el-table-column>
+    <el-table-column prop="state" label="我的工作">
+      <template #default="scope">
+      <el-tag class="ml-2" type="info">{{scope.row.state}}</el-tag>
+      </template>
+    </el-table-column>
     <el-table-column prop="defaultTime" label="日期" sortable  />
 
-        <el-table-column label="操作">
+    <el-table-column label="操作">
       <template #default="scope">
-        <el-button size="small" type="danger" @click="pushToItem(scope.$index, scope.row)"
+        <el-button @click="pushToItem(scope.$index, scope.row)"
           >打开</el-button>
       </template>
     </el-table-column>
@@ -78,7 +95,7 @@ export default {
     return {
         tableData: [],
         formData: {
-        scope: '我的提议 + 其他',
+        scope: '我的提议',
         category: '已经提交',
         keyword: '', 
         },
@@ -106,13 +123,12 @@ export default {
   {
     value: '不同意提议',
     label: '不同意提议',
+  },{
+    value: '全部提议',
+    label: '全部提议',
   },
 ],
         options2 : [
-  {
-    value: '我的提议 + 其他',
-    label: '我的提议 + 其他',
-  },
   {
     value: '我的提议',
     label: '我的提议',
@@ -122,7 +138,7 @@ export default {
   },
   methods:{
     pushToItem(index, row){
-      this.$store.commit('setId',row.id)
+      this.$store.commit('setAdviseId',row.id)
       this.$router.push('advise-common-item').catch((e)=>{
                     console.log(e)
                   });
@@ -165,10 +181,6 @@ this.getTableData(this.formData.keyword,this.formData.category,this.formData.sco
 }
 </script>
 <style scoped>
-.example-pagination-block + .example-pagination-block {
-  margin-top: 10px;
-}
-.example-pagination-block .example-demonstration {
-  margin-bottom: 16px;
-}
+
+
 </style>

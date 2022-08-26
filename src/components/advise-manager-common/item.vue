@@ -1,10 +1,11 @@
 <template>
 <div>
-    <!-- item <a @click="$router.back()">aaa</a> -->
-            <el-button size="small" type="danger" @click="this.$router.back()"
-          >返回</el-button>
-
-  <el-descriptions title="提议明细" :column="2" border>
+    <el-divider content-position="left">功能区</el-divider>
+    <div class="button"><el-button  @click="this.$router.back()"
+          >返回</el-button></div>
+            
+<el-divider></el-divider>
+  <el-descriptions  :column="2" border>
     <el-descriptions-item
       label="提议名称"
       label-align="right"
@@ -15,7 +16,11 @@
       >{{adviseName}}</el-descriptions-item
     >
     <el-descriptions-item label="提议状态" label-align="right" align="center"
-      >{{state}}</el-descriptions-item
+      >
+      <el-tag class="ml-2" type="info">{{state}}</el-tag>
+     
+      
+      </el-descriptions-item
     >
     <el-descriptions-item label="提交时间" label-align="right" align="center"
       >{{defaultTime}}</el-descriptions-item
@@ -70,10 +75,13 @@
   </el-card>
       
 
-    <el-table :data="tableData" style="width: 100%">
-    <el-table-column prop="date" label="Date" width="180" />
-    <el-table-column prop="name" label="Name" width="180" />
-    <el-table-column prop="address" label="Address" />
+    <el-table :data="opinion" border style="width: 100%;margin-top: 20px;">
+    <el-table-column prop="id" label="沟通编号" width="180" />
+    <el-table-column prop="opinion_type" label="沟通类型" width="180" />
+    <el-table-column prop="username" label="操作人" />
+    
+    <el-table-column prop="default_time" label="时间" />
+    <el-table-column prop="review_opinion_introduce" label="沟通说明" />
   </el-table>
 
 <!-- <div v-html="valueHtml" style="font-size: 18px;min-height: 100px; overflow-y: hidden;text-align: left;"></div> -->
@@ -98,6 +106,7 @@ export default {
             userName: '',
             projectName: '',
             state:'',
+            opinion: []
         }
             
     },
@@ -145,16 +154,17 @@ export default {
                 console.log(resp)
                 if(resp.data.flag)
                 {
-                    this.adviseName = resp.data.data.advice_name
-                    this.introduce = resp.data.data.introduce
-                    this.feasibilityAnalyze = resp.data.data.feasibility_analyze
-                    this.innovation = resp.data.data.innovation
+                    this.adviseName = resp.data.data.advice.advice_name
+                    this.introduce = resp.data.data.advice.introduce
+                    this.feasibilityAnalyze = resp.data.data.advice.feasibility_analyze
+                    this.innovation = resp.data.data.advice.innovation
 
-                    this.defaultTime = resp.data.data.default_time
-                    this.userName = resp.data.data.admin
-                    this.projectName = resp.data.data.project_name
-                    this.state = resp.data.data.project_submit_state_name
-    
+                    this.defaultTime = resp.data.data.advice.default_time
+                    this.userName = resp.data.data.advice.admin
+                    this.projectName = resp.data.data.advice.project_name
+                    this.state = resp.data.data.advice.project_submit_state_name
+
+                    this.opinion = resp.data.data.opinion;
                 }
             })
         }
@@ -164,9 +174,9 @@ export default {
 // console.log('updated',this.$store.state.id) 
 //   },
   created() {
-    this.getItemData(this.$store.state.id)
+    this.getItemData(this.$store.state.advise.id)
     // props 会暴露到 `this` 上
-    console.log('created',this.$store.state.id) 
+    console.log('created',this.$store.state.advise.id) 
   },
   beforeRouteLeave(to,from,next)
   {
@@ -178,20 +188,10 @@ export default {
 
 
 <style scoped>
-.box-card {
-  width: 100%;
-  padding:0;
-  margin-top: 10px;
-}
 .my-label {
   background: var(--el-color-success-light-9);
 }
 .my-content {
   background: var(--el-color-danger-light-9);
-}
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 </style>
