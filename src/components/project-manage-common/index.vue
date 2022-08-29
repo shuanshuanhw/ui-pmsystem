@@ -178,3 +178,6 @@ this.getTableData(this.formData.keyword,this.formData.category,this.formData.sco
   }
 }
 </script>
+<style scoped>
+
+</style>

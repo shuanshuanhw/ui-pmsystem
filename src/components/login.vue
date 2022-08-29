@@ -170,8 +170,10 @@ export default {
                 console.log('resp',resp)
                 if(resp.data.flag)
                 {
+                  // debugger
                   // 如果登陆成功，将token放在cookie，跳转到主页
                   Cookies.set('token',resp.data.data)
+                  // localStorage.setItem('token',token)
                   this.$router.push('/index').catch((e)=>{
                     console.log(e)
                   });

@@ -14,3 +14,17 @@ export function getTableData(keyword,category,scope,pageNumber,pageSize) {
         },
       })
     }
+export function getObjectList(projectType,projectTank)
+{
+  const token = Cookies.get('token');
+  return request({
+    url: `/vue/project/getObjectList/${projectType}/${projectTank}`,
+    headers: {'token': token},
+    method: 'post',
+    // params: {
+    //   keyword,
+    //   category,
+    //   scope
+    // },
+  })
+}
