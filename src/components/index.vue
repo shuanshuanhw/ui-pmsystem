@@ -22,7 +22,7 @@
 <script>
 import Left from '@/components/Left'
 import Top from '@/components/Top'
-import {getUser} from '@/api/index.js'
+
 export default {
     components:{
         Left,
@@ -30,13 +30,7 @@ export default {
     },
     created(){
       // 在开始的时候，向后台取user资料，并存入vuex
-      getUser().then(resp=>{
-        console.log('取用户资料',resp)
-        if(resp.data.flag)
-        {
-          localStorage.setItem('department',resp.data.data.department)
-        }
-      })
+      
     }
 }
 </script>

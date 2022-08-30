@@ -301,13 +301,20 @@
         <span class="text-gray-500">-</span>
       </el-col>
       <el-col :span="11">
-        <el-time-picker
+        <el-date-picker
           v-model="form.projectEndDate"
+          type="date"
           placeholder="选择项目结束时间"
           style="width: 100%"
         />
       </el-col>
     </el-form-item>
+
+    <el-form-item label="项目创建人的工作明细">
+      <el-input v-model="form.workMx" type="textarea" />
+    </el-form-item>
+
+
   </el-form>
   </el-card>
 
@@ -385,12 +392,12 @@
 <script>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
-import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
+import { getCurrentInstance,onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { DomEditor } from '@wangeditor/editor'
-import {newMainItem} from '@/api/advise.js'
+// import {newMainItem} from '@/api/advise.js'
 
-import {getObjectList} from '@/api/project.js'
+import {getObjectList,newMainItem} from '@/api/project.js'
 
 import { useStore } from 'vuex'
 
@@ -399,21 +406,6 @@ export default {
   },
   watch: {
 
-// 'form.projectType': {
-// 		handler(newVal, oldVal) {
-// 			//todo
-//       console.log('eeee1111')
-// 		},
-// 		immediate: true,
-//     deep: true // 可以深度检测到 person 对象的属性值的变化
-// 	}
-  // address: {
-  //   handler: function(newval , oldval) {
-  //     console.log('address new =:' + newval );
-  //     console.log('address old =:' + oldval );
-  //   },
-  //   deep: true
-  // }
   },
   data() {
     return {
@@ -424,7 +416,10 @@ export default {
             projectType: '',
             projectObjective: '',
             projectTank: '',
-            projectDepartment: ''
+            projectDepartment: '',
+            projectStartDate: '',
+            projectEndDate: '',
+            workMx:''
         },
         projectTypeList:[
                 
@@ -506,7 +501,7 @@ export default {
     }
   },
   components: { Editor, Toolbar },
-  setup() {
+  setup(props,ctx) {
     const store = useStore()
 
     // 编辑器实例，必须用 shallowRef
@@ -519,9 +514,6 @@ export default {
     const valueHtml3 = ref('')
     // 模拟 ajax 异步获取内容
     onMounted(() => {
-        setTimeout(() => {
-            valueHtml.value = ''
-        }, 1500)
     })
 
     const toolbarConfig = {
@@ -580,14 +572,16 @@ toolbarKeys: [
     const handleCreated3 = (editor) => {
         editorRef3.value = editor // 记录 editor 实例，重要！
     }
-    const next = () =>{
-        console.log(adviseName._rawValue)
-     //   store.commit('setNewAdvise',{adviseName: adviseName,introduce: valueHtml,feasibilityAnalyze: valueHtml2,innovation: valueHtml3});
-        // newMainItem(adviseName._rawValue,valueHtml._rawValue,valueHtml2._rawValue,valueHtml3._rawValue).then(resp=>{
-        //     console.log(resp)
-        // })
 
-        console.log('projectName',this.form.projectName)
+    const datab = getCurrentInstance();
+        
+    const next = () =>{
+    console.log('valueHtml',valueHtml)
+        newMainItem(datab.data.form.projectName,datab.data.form.projectType,datab.data.form.projectObjective,datab.data.form.projectTank,datab.data.form.projectDepartment,datab.data.form.projectStartDate,datab.data.form.projectEndDate,datab.data.form.workMx,valueHtml._rawValue,valueHtml2._rawValue,valueHtml3._rawValue).then(resp=>{
+            console.log(resp)
+        })
+      
+        console.log('projectName',datab.data)
     }
     return {
       editorRef,

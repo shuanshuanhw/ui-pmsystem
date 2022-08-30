@@ -117,8 +117,8 @@ export default{
     value: '不同意立项',
     label: '不同意立项',
   },{
-    value: '全部立项',
-    label: '全部立项',
+    value: '全部项目',
+    label: '全部项目',
   },
 ],
         options2 : [
@@ -137,8 +137,8 @@ export default{
   },
     methods:{
     pushToItem(index, row){
-      this.$store.commit('setId',row.id)
-      this.$router.push('advise-common-item').catch((e)=>{
+      this.$store.commit('setProjectId',row.id)
+      this.$router.push('project-common-item').catch((e)=>{
                     console.log(e)
                   });
     },

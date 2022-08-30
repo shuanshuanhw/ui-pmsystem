@@ -28,3 +28,39 @@ export function getObjectList(projectType,projectTank)
     // },
   })
 }
+
+export function newMainItem(projectName,projectType,projectObjective,projectTank,projectDepartment,projectStartDate,projectEndDate,workMx,introduce,feasibilityAnalyze,innovation)
+{
+  const token = Cookies.get('token');
+  return request({
+    url: `/vue/project/newMainItem`,
+    headers: {'token': token},
+    method: 'post',
+    params: {
+      projectName,
+      projectType,
+      projectObjective,
+      projectTank,
+      projectDepartment,
+      projectStartDate,
+      projectEndDate,
+      workMx,
+      introduce,
+      feasibilityAnalyze,
+      innovation
+    },
+  })
+}
+
+export function getItemData(id)
+{
+  const token = Cookies.get('token');
+  return request({
+    url: `/vue/project/getItemData`,
+    headers: {'token': token},
+    method: 'get',
+    params: {
+      id,
+    },
+  })
+}

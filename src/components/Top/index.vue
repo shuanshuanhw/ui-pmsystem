@@ -8,7 +8,9 @@
 
   </el-breadcrumb>
 </div>
+
   <div>
+    <span class="text">用户名: {{trueName}}</span>
     <el-dropdown trigger="click">
     <span class="el-dropdown-link">
       <img :src="avatar" class="user-avatar">
@@ -31,9 +33,14 @@
           </div>
 </template>
 <script  lang="ts" setup>
+
 import { ArrowRight } from '@element-plus/icons-vue'
 import Cookies from "js-cookie";
 import { useRoute, useRouter } from 'vue-router'
+
+console.log('主页上取的token',Cookies.get('token'))
+console.log('主页上取的token',Cookies.get('trueName'))
+const trueName = Cookies.get('trueName')
         // 获取路由实例
         const router = useRouter()
         const avatar: string = 'ren.jpg'
@@ -44,8 +51,19 @@ import { useRoute, useRouter } from 'vue-router'
           console.log(e)
                   });
         }
+  //       return { //必须返回 模板中才能使用
+  //  trueName,
+  //  logout,
+  //  avatar,
+  //  router
+  // }
 </script>
 <style scoped>
+.text{
+  height: 50px;
+  line-height: 50px;
+  margin-right: 10px;
+}
 .user-avatar{
     width: 40px;
 }

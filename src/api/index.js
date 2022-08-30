@@ -11,10 +11,10 @@ export function getPermission() {
     })
   }
 
-export function getUser(){
-  const token = Cookies.get('token');
+export function getUser(token){
+  // const token = Cookies.get('token');
     return request({
-      url: '/vue/getUser',
+      url: `/vue/getUser/${token}`,
       headers: {'token': token},
       method: 'get',
     })

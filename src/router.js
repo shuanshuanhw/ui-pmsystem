@@ -96,6 +96,11 @@ const routes = [
         meta:{keepAlive: false},
         component: ()=>import('@/components/project-manage-common/newItem')  
       },{
+        path: 'project-common-Item',
+        name: 'project-common-Item',
+        meta:{keepAlive: false},
+        component: ()=>import('@/components/project-manage-common/Item')  
+      },{
         path: 'project-common',
         name: 'project-common',
         meta:{keepAlive: true},
