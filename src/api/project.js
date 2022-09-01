@@ -128,3 +128,29 @@ export function cancelConfirm(id,projectId)
     },
   })
 }
+export function cancelConfirmWork(id,projectId)
+{
+  const token = Cookies.get('token');
+  return request({
+    url: `/vue/project/cancelConfirmWork/${id}`,
+    headers: { 'token': token },
+    method: 'post',
+    params: {
+      projectId
+    },
+  })
+}
+export function increaseBatchWorkAdd(increaseBatchWorkForm,projectId)
+{
+  const token = Cookies.get('token');
+  return request({
+    url: `/vue/project/increaseBatchWorkAdd`,
+    headers: { 'token': token,"Content-Type": "application/json; charset=UTF-8"},
+    method: 'post',
+    data:increaseBatchWorkForm,
+    // data:JSON.stringify(increaseBatchWorkForm),
+    params: {
+      projectId
+    },
+  })
+}
