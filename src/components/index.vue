@@ -9,20 +9,35 @@
           <Top></Top>
         </el-header>
         <el-main>
-          <router-view  v-slot="{ Component }" v-if="$route.meta.keepAlive">
+          <!-- <router-view  v-slot="{ Component }" v-if="$route.meta.keepAlive">
             <keep-alive>
               <component :is="Component" />
             </keep-alive>
           </router-view>
+          
           <router-view  v-if="!$route.meta.keepAlive"></router-view>
-        <!-- <span v-if="!$route.meta.keepAlive">路由是假的</span> -->
-        </el-main>
+  -->
+<!-- <router-view v-slot="{ Component, route }" :key="$route.path">
+  <keep-alive v-if="Component">
+    <component  :is="Component" v-if="route.meta.keepAlive"></component>
+  </keep-alive>
+  <component  :is="Component" v-if="!route.meta.keepAlive"></component>
+</router-view> -->
+
+<div>
+  <router-view v-slot="{ Component,route }" :key="this.$route.path">
+  <transition name="fade-transform" mode="out-in">
+    <keep-alive><component :is="Component"  /></keep-alive>
+  </transition>
+</router-view>
+</div>
+
+      </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
-<style scoped>
-</style>
+
 <script>
 import Left from '@/components/Left'
 import Top from '@/components/Top'
@@ -36,10 +51,106 @@ export default {
     // 在开始的时候，向后台取user资料，并存入vuex
 
     console.log('$route.meta.keepAlive',this.$route.meta.keepAlive)
-  }
+  },
+
+
 }
 </script>
-<style scoped>
+<style>
+
+
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all .5s;
+}
+
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+
+/* .slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  height: 100%;
+  will-change: transform;
+  transition: all 500ms;
+  position: absolute;
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+} */
+
+/* .v-enter-active,
+.v-leave-active {
+  transition: opacity 2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+} */
+
+
+/* .aside-right-enter-active,
+.aside-right-leave-active {
+    transition: all 0.5s ease;
+}
+
+.aside-right-enter-from,
+.aside-right-leave-to {
+    transform: translate(100%, 0);
+} */
+
+
+/* .fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+} */
+
+
+
+/* .scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
+}
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+} */
+
+
+/* .fade-enter-to,
+.fade-leave-from {
+  opacity: 0;
+} */
+
+/* .fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s ease;
+} */
+
+/* 上面是用来路由过渡的动画效果 */
 .el-header {
   /* margin: 0; */
   padding: 0;

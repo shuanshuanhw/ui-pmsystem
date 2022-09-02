@@ -42,7 +42,7 @@
       </el-table-column>
       <el-table-column prop="state" label="我的工作">
         <template #default="scope">
-          <el-tag class="ml-2" type="info">{{ scope.row.state }}</el-tag>
+          <el-tag class="ml-2" type="info">{{ scope.row.myWork }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="defaultTime" label="日期" sortable />
@@ -68,7 +68,7 @@ export default {
     return {
       tableData: [],
       formData: {
-        scope: '我全部的立项',
+        scope: '我全部的项目',
         category: '已经提交',
         keyword: '',
       },
@@ -103,14 +103,14 @@ export default {
       ],
       options2: [
         {
-          value: '我全部的立项',
-          label: '我全部的立项',
+          value: '我全部的项目',
+          label: '我全部的项目',
         }, {
-          value: '我负责的立项',
-          label: '我负责的立项',
+          value: '我负责的项目',
+          label: '我负责的项目',
         }, {
-          value: '我参与的立项',
-          label: '我参与的立项',
+          value: '我参与的项目',
+          label: '我参与的项目',
         },
       ]
     };

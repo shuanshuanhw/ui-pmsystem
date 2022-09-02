@@ -170,7 +170,7 @@
     <div class="button">
       <!-- 这里需要一个权限 -->
       <el-button @click="">注销</el-button>
-      <el-button @click="this.$router.back()">返回</el-button>
+      <el-button @click="this.$router.back(-1)">返回</el-button>
     </div>
 
     <el-divider></el-divider>

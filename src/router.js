@@ -18,6 +18,10 @@ const routes = [
     path: '/vue/profile',
     component: ()=>import('@/components/myseft')
   },
+  {
+    path: '/test',
+    component: () => import('@/components/Test.vue'),
+  },
   { 
     path: '/index', 
     component: () => import('@/components/index.vue'),
@@ -28,6 +32,7 @@ const routes = [
         redirect: 'index/index'
         
       },
+
       {
         path:'function-evaluation',
         name: "function-evaluation",
@@ -98,7 +103,7 @@ const routes = [
       },{
         path: 'project-common-Item',
         name: 'project-common-Item',
-        meta:{keepAlive: true},
+        meta:{keepAlive: false},
         component: ()=>import('@/components/project-manage-common/Item')  
       },{
         path: 'project-common',

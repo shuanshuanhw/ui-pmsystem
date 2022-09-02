@@ -1,3 +1,4 @@
 <template>
-finish-manage-common
+
+<div>finish-manage-common</div>
 </template>

@@ -55,11 +55,7 @@
       </template>
     
       </el-table-column>
-    <el-table-column prop="state" label="我的工作">
-      <template #default="scope">
-      <el-tag class="ml-2" type="info">{{scope.row.state}}</el-tag>
-      </template>
-    </el-table-column>
+
     <el-table-column prop="defaultTime" label="日期" sortable  />
 
     <el-table-column label="操作">
