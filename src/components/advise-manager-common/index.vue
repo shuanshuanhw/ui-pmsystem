@@ -41,7 +41,9 @@
 
 <div class="button"><el-button  @click="this.$router.push('advise-common-newItem')" plain>新建提议</el-button></div>
   <el-divider></el-divider>
-   <el-table 
+   <el-table
+   v-loading="loading"
+   element-loading-text="正在加载..."
    :data="tableData" 
    style="width: 100%"
    :default-sort="{ prop: 'defaultTime', order: 'descending' }"
@@ -101,6 +103,7 @@ export default {
           pageSize: 20
         },
         url: '/u41.png',
+        loading: false,
 		ifAdmin: false,
 		permission:'2',
         options : [
@@ -151,10 +154,10 @@ this.getTableData(this.formData.keyword,this.formData.category,this.formData.sco
         this.getTableData(this.formData.keyword,this.formData.category,this.formData.scope,1,this.page.pageSize);
       },
     // 从后台取出数据集，根据分页
-    getTableData(keyword,category,scope,pageNumber,pageSize)
+    async getTableData(keyword,category,scope,pageNumber,pageSize)
     {
-     
-      getTableData(keyword,category,scope,pageNumber,pageSize).then(resp=>{
+     this.loading = true
+await getTableData(keyword,category,scope,pageNumber,pageSize).then(resp=>{
         console.log(resp)
         if(resp.data.flag)
         {
@@ -162,6 +165,7 @@ this.getTableData(this.formData.keyword,this.formData.category,this.formData.sco
           this.page.total = resp.data.data.total
         }
       })
+      this.loading = false
     },
     onSubmit(){
 this.getTableData(this.formData.keyword,this.formData.category,this.formData.scope,1,this.page.pageSize);

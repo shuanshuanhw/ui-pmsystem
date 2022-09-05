@@ -47,7 +47,7 @@ const trueName = Cookies.get('trueName')
         const logout = ()=>{
           // 删除token，返回主页
           Cookies.remove("token");
-          router.push('/').catch((e)=>{
+          router.push('/login').catch((e)=>{
           console.log(e)
                   });
         }

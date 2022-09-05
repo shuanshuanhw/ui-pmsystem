@@ -11,7 +11,7 @@ const About = { template: '<div>About</div>' }
 
 const routes = [
   { 
-  path: '/', 
+  path: '/login', 
   component: ()=>import('@/components/login.vue')  
   },
   {
@@ -23,14 +23,13 @@ const routes = [
     component: () => import('@/components/Test.vue'),
   },
   { 
-    path: '/index', 
+    path: '/', 
     component: () => import('@/components/index.vue'),
     children:[
       {
         path:"",
         name: "",
-        redirect: 'index/index'
-        
+        redirect: '/index' 
       },
 
       {
@@ -56,17 +55,17 @@ const routes = [
       },
       {
         path:'finish',
-        meta:{keepAlive: true},
+        meta:{keepAlive: true,title: '结项管理首页'},
         component: () => import('@/components/finish-manage')
       },
       {
         path:'advise',
-        meta:{keepAlive: true},
+        meta:{keepAlive: true,title: '提议管理首页'},
         component: () => import('@/components/advise-manage')
       },
       {
         path:'project',
-        meta:{keepAlive: true},
+        meta:{keepAlive: true,title: '立项管理首页'},
         component: () => import('@/components/project-manage')
       },
       {
@@ -79,42 +78,42 @@ const routes = [
       {
         path: 'advise-common',
         name: 'advise-common',
-        meta:{keepAlive: true},
+        meta:{keepAlive: true,title: '提议管理首页'},
         component: ()=>import('@/components/advise-manager-common')  
       },
       {
         path: 'advise-common-item',
         name: 'advise-common-item',
-        meta:{keepAlive: true},
+        meta:{keepAlive: true,title: '提议管理明细'},
         component: ()=>import('@/components/advise-manager-common/item')  
       },
       {
         path: 'advise-common-newItem',
         name: 'advise-common-newItem',
-        meta:{keepAlive: false},
+        meta:{keepAlive: false,title: '新建提议'},
         component: ()=>import('@/components/advise-manager-common/newItem')  
       }
       ,
       {
         path: 'project-common-newItem',
         name: 'project-common-newItem',
-        meta:{keepAlive: false},
+        meta:{keepAlive: false,title: '新建立项'},
         component: ()=>import('@/components/project-manage-common/newItem')  
       },{
         path: 'project-common-Item',
         name: 'project-common-Item',
-        meta:{keepAlive: false},
+        meta:{keepAlive: false,title: '立项管理明细'},
         component: ()=>import('@/components/project-manage-common/Item')  
       },{
         path: 'project-common',
         name: 'project-common',
-        meta:{keepAlive: true},
+        meta:{keepAlive: true,title: '立项管理首页'},
         component: ()=>import('@/components/project-manage-common')  
       },
       {
         path: 'finish-common',
         name: 'finish-common',
-        meta:{keepAlive: true},
+        meta:{keepAlive: true,title: '结项管理首页'},
         component: ()=>import('@/components/finish-manage-common')  
       }
     ]

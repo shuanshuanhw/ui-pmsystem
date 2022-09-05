@@ -25,9 +25,16 @@
 </router-view> -->
 
 <div>
-  <router-view v-slot="{ Component,route }" :key="this.$route.path">
+  <!-- <router-view v-slot="{ Component,route }" :key="this.$route.path">
   <transition name="fade-transform" mode="out-in">
     <keep-alive><component :is="Component"  /></keep-alive>
+  </transition>
+</router-view> -->
+
+
+<router-view v-slot="{ Component }">
+  <transition name="fade-transform" enter-from-class="fade-transform-enter" mode="out-in">
+    <component :is="Component" />
   </transition>
 </router-view>
 </div>
@@ -41,28 +48,74 @@
 <script>
 import Left from '@/components/Left'
 import Top from '@/components/Top'
-
+// import NProgress from 'nprogress'
+// import 'nprogress/nprogress.css'
+// import { ElMessage,ElLoading } from 'element-plus'
 export default {
   components: {
     Left,
     Top,
   },
-  created() {
-    // 在开始的时候，向后台取user资料，并存入vuex
-
-    console.log('$route.meta.keepAlive',this.$route.meta.keepAlive)
+  data(){
+    return{
+    }
   },
+  beforeCreate()
+  {
+  },
+  created() {
+  },
+  mounted(){
 
+  }
 
 }
 </script>
 <style>
 
 
-/* fade-transform */
+.transitionRouter-enter-active, .transitionRouter-leave-active {
+    transition: all 4s;
+} .transitionRouter-enter, .transitionRouter-leave{
+    transform: translate3d(100%, 0, 0);
+}
+
+
+
+.fade-enter {
+ 
+ opacity:0;
+ 
+}
+ 
+.fade-leave{
+ 
+ opacity:1;
+ 
+}
+ 
+.fade-enter-active{
+ 
+ transition:opacity 5s;
+ 
+}
+ 
+.fade-leave-active{
+ 
+ opacity:0;
+ 
+ transition:opacity .5s;
+ 
+}
+  /* fade-transform */
+  .fade-transform--move,
 .fade-transform-leave-active,
 .fade-transform-enter-active {
   transition: all .5s;
+}
+
+.fade-transform-leave-active {
+  position: absolute;
 }
 
 .fade-transform-enter {
@@ -74,7 +127,6 @@ export default {
   opacity: 0;
   transform: translateX(30px);
 }
-
 
 /* .slide-right-enter-active,
 .slide-right-leave-active,

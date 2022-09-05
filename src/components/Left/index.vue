@@ -12,7 +12,8 @@
             <div>项目绩效管理系统</div>
           </div>
 
-          <el-menu default-active="index" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+          <el-menu default-active="index" class="el-menu-vertical-demo" 
+
             :router="true">
             <el-menu-item index="index">
               <el-icon>
@@ -72,7 +73,7 @@
             <div>项目绩效管理系统</div>
           </div>
 
-          <el-menu default-active="index" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+          <el-menu default-active="index" class="el-menu-vertical-demo" 
             :router="true">
 
 
