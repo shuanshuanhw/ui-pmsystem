@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
       //       })
       //     })
       // } else {
-        console.log('路由',to.path);
+        // console.log('路由',to.path);
         next()
         NProgress.done()
       // }
