@@ -120,6 +120,7 @@ export default {
         if (valid) {
           this.loading = true;
           await login(this.loginForm).then(async resp => {
+            // debugger
             console.log('resp', resp)
             if (resp.data.flag) {
               Cookies.set('token', resp.data.data)
@@ -148,8 +149,13 @@ export default {
               ElMessage.error(resp.data.message)
               this.loading = false;
             }
-          }).catch();
-        }
+          }).catch(function (error) {
+    // 处理错误情况
+    // catch 里面的数据，应该是在拦截器返回的，return Promise.reject(res)
+    console.log(error);
+    
+  });
+  this.loading = false; }
       }).catch(function (error) {
     // 处理错误情况
     console.log(error);
