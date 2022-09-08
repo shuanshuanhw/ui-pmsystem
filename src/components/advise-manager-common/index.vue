@@ -157,7 +157,8 @@ this.getTableData(this.formData.keyword,this.formData.category,this.formData.sco
     async getTableData(keyword,category,scope,pageNumber,pageSize)
     {
      this.loading = true
-await getTableData(keyword,category,scope,pageNumber,pageSize).then(resp=>{
+await getTableData(keyword,category,scope,pageNumber,pageSize)
+      .then(resp=>{
         console.log(resp)
         if(resp.data.flag)
         {
@@ -165,6 +166,10 @@ await getTableData(keyword,category,scope,pageNumber,pageSize).then(resp=>{
           this.page.total = resp.data.data.total
         }
       })
+      .catch(error=>{
+        console.log('取数据发生了错误',error)
+      })
+ 
       this.loading = false
     },
     onSubmit(){

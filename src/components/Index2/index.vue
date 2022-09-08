@@ -125,7 +125,9 @@ export default {
 	else
 	this.ifAdmin = false;
 
-	})
+	}).catch(error=>{
+    console.log(error)
+  })
 },
 
   },

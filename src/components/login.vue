@@ -148,9 +148,12 @@ export default {
               ElMessage.error(resp.data.message)
               this.loading = false;
             }
-          })
+          }).catch();
         }
-      });
+      }).catch(function (error) {
+    // 处理错误情况
+    console.log(error);
+  })
     }
   }
 };
