@@ -97,7 +97,7 @@ service.interceptors.response.use(res => {
           }
         ).then(() => {
           console.log('router',router)
-          router.push('/login').catch((error) => {
+          router.push('/login').catch(error => {
             console.log('跳转到登陆页的路由跳转不了',error)
           });
           console.log('message') 
