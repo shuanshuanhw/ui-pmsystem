@@ -170,7 +170,7 @@
     <div class="button">
       <!-- 这里需要一个权限 -->
       <el-button @click="">注销</el-button>
-      <el-button @click="this.$router.back(-1)">返回</el-button>
+      <el-button @click="this.$router.back()">返回</el-button>
     </div>
 
     <el-divider></el-divider>
@@ -883,13 +883,18 @@ export default {
     }
   },
   created() {
+    console.log('created',this.$store.state.project.id,'111')
     this.getItemData(this.$store.state.project.id)
     // props 会暴露到 `this` 上
   },
-  beforeRouteLeave(to, from, next) {
-    to.meta.keepAlive = true
-    next()
-  }
+  activated () {
+    console.log('activated',this.$store.state.project.id)
+    this.getItemData(this.$store.state.project.id)
+},
+  // beforeRouteLeave(to, from, next) {
+  //   to.meta.keepAlive = true
+  //   next()
+  // }
 }
 </script>
 

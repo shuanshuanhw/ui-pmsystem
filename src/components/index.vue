@@ -32,9 +32,16 @@
 </router-view> -->
 
 
-<router-view v-slot="{ Component }">
+<router-view v-slot="{ Component,route }">
   <transition name="fade-transform" enter-from-class="fade-transform-enter" mode="out-in">
-    <component :is="Component" />
+    <!-- <keep-alive v-if="route.meta.keepAlive">
+      <component :is="Component" />
+    </keep-alive>
+    <component :is="Component" v-else /> -->
+        <keep-alive>
+      <component :is="Component" include='project-common' />
+    </keep-alive>
+    <!-- <component :is="Component" /> -->
   </transition>
 </router-view>
 </div>

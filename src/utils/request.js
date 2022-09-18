@@ -75,7 +75,8 @@ service.interceptors.response.use(res => {
     // res.data.code是自己定义的，res.status才是后台系统设置的，
     const code = res.data.code || 2000;
     // 获取错误信息
-    console.log('拦截器返回的数据',res)
+     console.log('拦截器返回的数据',res)
+     console.log('拦截器返回的数据',res.status)
     // debugger
     const msg = errorCode[code] || res.data.message || errorCode['default']
     // 二进制数据则直接返回
@@ -83,6 +84,10 @@ service.interceptors.response.use(res => {
       return res.data
     }
 
+    if(res.status !== 200)
+    {
+      
+    }
     if (code !== 2000) {
         ElNotification.error({
           title: msg
@@ -90,21 +95,43 @@ service.interceptors.response.use(res => {
         if(msg == "帐号登陆过期，请重新登陆")
         {
 
-          ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
+          ElMessageBox.alert('录状态已过期，请重新登录', '系统提示', {
+            // if you want to disable its autofocus
+            // autofocus: false,
             confirmButtonText: '重新登录',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }
-        ).then(() => {
-          console.log('router',router)
-          router.push('/login').catch(error => {
-            console.log('跳转到登陆页的路由跳转不了',error)
+            showClose: false,
+            // callback: (action: Action) => {
+            //   ElMessage({
+            //     type: 'info',
+            //     message: `action: ${action}`,
+            //   })
+            // },
+          }).then(() => {
+            console.log('router',router)
+            router.push('/login').catch(error => {
+              console.log('跳转到登陆页的路由跳转不了',error)
+            });
+            console.log('message') 
+            // location.href = '/login';
+          }).catch((error) => {
+            console.log(error)
           });
-          console.log('message') 
-          // location.href = '/login';
-        }).catch((error) => {
-          console.log(error)
-        });
+
+        //   ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
+        //     confirmButtonText: '重新登录',
+        //     cancelButtonText: '取消',
+        //     type: 'warning'
+        //   }
+        // ).then(() => {
+        //   console.log('router',router)
+        //   router.push('/login').catch(error => {
+        //     console.log('跳转到登陆页的路由跳转不了',error)
+        //   });
+        //   console.log('message') 
+        //   // location.href = '/login';
+        // }).catch((error) => {
+        //   console.log(error)
+        // });
         }
         return Promise.reject(res)
       } 
