@@ -109,6 +109,11 @@ const routes = [
         name: 'project-common',
         meta:{keepAlive: true,title: '立项管理首页'},
         component: ()=>import('@/components/project-manage-common')  
+      },{
+        path: 'project-common-toFinish',
+        name: 'project-common-toFinish',
+        meta:{keepAlive: true,title: '立项管理申请结项'},
+        component: ()=>import('@/components/project-manage-common/toFinish')  
       },
       {
         path: 'finish-common',

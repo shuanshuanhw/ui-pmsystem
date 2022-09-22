@@ -166,10 +166,12 @@
       </template>
     </el-dialog>
     <!-- 新建批量分工 -->
+
     <el-divider content-position="left">功能区</el-divider>
     <div class="button">
       <!-- 这里需要一个权限 -->
       <el-button @click="">注销</el-button>
+      <el-button @click="pushToFinish">结项申请</el-button>
       <el-button @click="this.$router.back()">返回</el-button>
     </div>
 
@@ -768,6 +770,12 @@ export default {
 
   },
   methods: {
+    pushToFinish(){
+      console.log('结项申请')
+      this.$router.push('project-common-toFinish').catch((e) => {
+        console.log(e)
+      });
+    },
     async increaseBatchWorkAdd() {
       await increaseBatchWorkAdd(this.increaseBatchWorkForm, this.$store.state.project.id).then(resp => {
         ElNotification({
