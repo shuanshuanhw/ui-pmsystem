@@ -29,18 +29,21 @@
         <el-upload 
         name="file" 
         v-model:file-list="fileList" 
-        class="upload-demo"
+        class="upload-demo upload"
         action="/fallback/vue/project/upload/document" multiple 
         :on-preview="handlePreview"
         :on-remove="handleRemove" 
-        :before-remove="beforeRemove" 
-        :limit="3"
+        :before-upload="beforeUpload"
+        :on-success="onSuccess"
+        accept=".jpg,.jpeg,.png,.gif,.bmp,.JPG,.JPEG,.GIF,.BMP,.PNG"
         :headers="headerObj"
+        list-type="picture-card"
         :on-exceed="handleExceed">
-            <el-button type="primary">Click to upload</el-button>
+        
+          <el-button>上传图片</el-button>
             <template #tip>
                 <div class="el-upload__tip">
-                    jpg/png files with a size less than 500KB.
+                    支持上传图片、视频、办公文档和压缩文件
                 </div>
             </template>
         </el-upload>
@@ -49,9 +52,11 @@
         <!-- 主体内容 -->
     </div>
 </template>
+
 <script lang="ts" setup>
 import { getToken } from '../../utils/auth'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import store from '../../store'
+import { ElNotification, ElMessage, ElMessageBox } from 'element-plus'
 import { UploadProps, UploadUserFile } from 'element-plus'
 import { getCurrentInstance, onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
@@ -67,32 +72,69 @@ const fileList = ref<UploadUserFile[]>([
     //     url: 'https://element-plus.org/images/element-plus-logo.svg',
     //   },
 ])
-
+console.log('store.state.project.id',store.state.project.id)
 const headerObj = {
-    token:getToken()
+    token:getToken(),
+    projectId:store.state.project.id
 }
 const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
-    console.log(file, uploadFiles)
+     console.log(file, uploadFiles)
+    // 確定刪除后，在這里數據庫同步刪除
+    ElNotification.error({
+          title: `${file.name} 已刪除`
+        })
 }
 
 const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
-    console.log(uploadFile)
+    console.log('kan')
 }
 
 const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
-    ElMessage.warning(
-        `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
+    // ElMessage.warning(
+    //     `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
+    //     } totally`
+    // )
+    ElNotification.error({
+          title: `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
         } totally`
-    )
+        })
 }
 
-const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
-    return ElMessageBox.confirm(
-        `Cancel the transfert of ${uploadFile.name} ?`
-    ).then(
-        () => true,
-        () => false
-    )
+// const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
+//     return ElMessageBox.confirm(
+//         `Cancel the transfert of ${uploadFile.name} ?`
+//     ).then(
+//         () => true,
+//         () => false
+//     )
+// }
+
+const beforeUpload: UploadProps['beforeUpload'] = (uploadFile) => {
+    const fileSuffix = uploadFile.name.substring(uploadFile.name.lastIndexOf(".") + 1);
+ // .jpg,.jpeg,.png,.gif,.bmp,.JPG,.JPEG,.GIF,.BMP,.PNG
+ const whiteList = ["jpg", "jpeg", "png", "gif", "bmp","JPG","JPEG","GIF","BMP","PNG"];
+
+ if (whiteList.indexOf(fileSuffix) === -1) {
+    ElNotification.error({
+          title: '上传文件只能是 jpg, jpeg, png, gif, bmp格式'
+        })
+    // ElMessage.error('上传文件只能是 jpg, jpeg, png, gif, bmp格式');
+   return false;
+ }
+
+ const isLt2M = uploadFile.size / 1024 / 1024 < 2;
+
+//  if (!isLt2M) {
+//     ElNotification.error({
+//           title: '上传文件大小不能超过 2MB'
+//         })
+//     // ElMessage.error('上传文件大小不能超过 2MB');
+//    return false;
+// }
+}
+const onSuccess: UploadProps['onSuccess']= (response, uploadFile, uploadFiles) => {
+    console.log(response)
+    console.log(uploadFile.name,'成功上传')
 }
 // 上傳模塊的
 const form = {}
@@ -146,3 +188,13 @@ const next = () => {
 }
 
 </script>
+<style scoped>
+   .upload{
+    text-align: right;
+    width:99%;
+    color:aqua;
+    border: 1px solid ghostwhite;
+    margin-top: 20px;
+    padding: 5px;
+   } 
+</style>
